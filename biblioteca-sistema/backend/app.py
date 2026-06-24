@@ -1013,13 +1013,14 @@ def index():
         }
     })
 
+# ==================== INICIALIZAR AL ARRANCAR ====================
+
+# Esto corre tanto con gunicorn como con python app.py
+with app.app_context():
+    inicializar_base_datos()
+
 # ==================== EJECUTAR APLICACIÓN ====================
 
 if __name__ == '__main__':
-    # Inicializar base de datos
-    inicializar_base_datos()
-    
-    # Ejecutar aplicación
-# CORRECCIÓN
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
