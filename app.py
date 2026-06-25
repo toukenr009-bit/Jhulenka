@@ -114,6 +114,7 @@ class Libro(db.Model):
     descripcion = db.Column(db.Text)
     estado = db.Column(db.String(20), default='ACTIVO')
     fecha_registro = db.Column(db.DateTime, default=datetime.utcnow)
+    portada_url = db.Column(db.String(500))
     
     # Relaciones
     prestamos = db.relationship('Prestamo', backref='libro', lazy=True)
@@ -131,7 +132,8 @@ class Libro(db.Model):
             'ejemplares_totales': self.ejemplares_totales,
             'ejemplares_disponibles': self.ejemplares_disponibles,
             'descripcion': self.descripcion,
-            'estado': self.estado
+            'estado': self.estado,
+            'portada_url': self.portada_url
         }
 
 class Prestamo(db.Model):
@@ -507,7 +509,8 @@ def crear_libro(current_user):
         ejemplares_totales=ejemplares_totales,
         ejemplares_disponibles=ejemplares_disponibles,
         descripcion=data.get('descripcion'),
-        estado='ACTIVO'
+        estado='ACTIVO',
+        portada_url=data.get('portada_url')
     )
     
     try:
@@ -534,7 +537,7 @@ def actualizar_libro(current_user, id):
     data = request.get_json()
     
     # Actualizar campos permitidos
-    campos_permitidos = ['titulo', 'autor', 'editorial', 'id_categoria', 'anio_publicacion', 'descripcion']
+    campos_permitidos = ['titulo', 'autor', 'editorial', 'id_categoria', 'anio_publicacion', 'descripcion', 'portada_url']
     for campo in campos_permitidos:
         if campo in data:
             setattr(libro, campo, data[campo])
