@@ -87,7 +87,28 @@ const elements = {
     bookDetailModal: document.getElementById('bookDetailModal'),
 
     // Toast
-    toast: document.getElementById('toast')
+    toast: document.getElementById('toast'),
+    // Formulario de libro
+    bookForm: document.getElementById('bookForm'),
+    // Mis Libros / Favoritos
+    misLibrosSection: document.getElementById('misLibrosSection'),
+    misLibrosLeidos: document.getElementById('misLibrosLeidos'),
+    misFavoritosList: document.getElementById('misFavoritosList'),
+    misLibrosEmpty: document.getElementById('misLibrosEmpty'),
+    refreshMisLibros: document.getElementById('refreshMisLibros'),
+    // Reportes
+    reportesSection: document.getElementById('reportesSection'),
+    reportesList: document.getElementById('reportesList'),
+    reportesEmpty: document.getElementById('reportesEmpty'),
+    downloadPdfBtn: document.getElementById('downloadPdfBtn'),
+    downloadExcelBtn: document.getElementById('downloadExcelBtn'),
+    refreshReports: document.getElementById('refreshReports'),
+    reportTotalLibros: document.getElementById('reportTotalLibros'),
+    reportTotalUsuarios: document.getElementById('reportTotalUsuarios'),
+    reportTotalPrestamos: document.getElementById('reportTotalPrestamos'),
+    reportTotalDevoluciones: document.getElementById('reportTotalDevoluciones'),
+    reportTotalReservas: document.getElementById('reportTotalReservas'),
+    reportTotalMultas: document.getElementById('reportTotalMultas')
 };
 
 // Inicialización
@@ -366,6 +387,18 @@ function navigateTo(section) {
                 showToast('Acceso denegado', 'error');
             }
             break;
+        case 'mis-libros':
+            showSection(elements.misLibrosSection);
+            loadMisLibros();
+            break;
+        case 'reportes':
+            if (state.currentUser?.tipo_usuario === 'ADMINISTRADOR') {
+                showSection(elements.reportesSection);
+                loadReportes();
+            } else {
+                showToast('Acceso denegado', 'error');
+            }
+            break;
     }
 }
 
@@ -404,7 +437,9 @@ function showSection(section) {
         elements.prestamosSection,
         elements.devolucionesSection,
         elements.reservasSection,
-        elements.usuariosSection
+        elements.usuariosSection,
+        elements.misLibrosSection,
+        elements.reportesSection
     ];
 
     sections.forEach(sec => {
@@ -1487,4 +1522,33 @@ function showToast(message, type = 'info') {
     setTimeout(() => {
         elements.toast.classList.remove('show');
     }, 3000);
+}
+
+// --- Mis Libros / Reportes (frontend listo, backend pendiente) ---
+function loadMisLibros() {
+    if (elements.misLibrosLeidos) elements.misLibrosLeidos.innerHTML = '';
+    if (elements.misFavoritosList) elements.misFavoritosList.innerHTML = '';
+    if (elements.misLibrosEmpty) elements.misLibrosEmpty.style.display = 'block';
+}
+
+function loadReportes() {
+    if (elements.reportesList) elements.reportesList.innerHTML = '';
+    if (elements.reportesEmpty) elements.reportesEmpty.style.display = 'block';
+}
+
+if (elements.refreshMisLibros) {
+    elements.refreshMisLibros.addEventListener('click', loadMisLibros);
+}
+if (elements.refreshReports) {
+    elements.refreshReports.addEventListener('click', loadReportes);
+}
+if (elements.downloadPdfBtn) {
+    elements.downloadPdfBtn.addEventListener('click', () => {
+        showToast('Función de reportes en desarrollo', 'info');
+    });
+}
+if (elements.downloadExcelBtn) {
+    elements.downloadExcelBtn.addEventListener('click', () => {
+        showToast('Función de reportes en desarrollo', 'info');
+    });
 }
