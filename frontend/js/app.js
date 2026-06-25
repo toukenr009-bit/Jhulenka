@@ -21,6 +21,8 @@ const state = {
 };
 
 // Elementos del DOM
+const GENERIC_COVER_URL = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='280'><rect width='200' height='280' fill='%23cbd5e1'/><text x='100' y='130' font-size='40' text-anchor='middle' fill='%23475569'>📚</text><text x='100' y='170' font-size='13' text-anchor='middle' fill='%23475569'>Sin portada</text></svg>";
+
 const elements = {
     // Secciones
     loginSection: document.getElementById('loginSection'),
@@ -549,7 +551,7 @@ function renderLibros() {
         const card = document.createElement('div');
         card.className = 'book-card';
         card.innerHTML = `
-            <img src="${libro.portada_url || 'data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='280'><rect width='200' height='280' fill='%23cbd5e1'/><text x='100' y='130' font-size='40' text-anchor='middle' fill='%23475569'>📚</text><text x='100' y='170' font-size='13' text-anchor='middle' fill='%23475569'>Sin portada</text></svg>'}" alt="Portada de ${libro.titulo}" class="book-cover" style="width:100%;height:160px;object-fit:cover;border-radius:6px;margin-bottom:8px;">
+            <img src="${libro.portada_url || GENERIC_COVER_URL}" alt="Portada de ${libro.titulo}" class="book-cover" style="width:100%;height:160px;object-fit:cover;border-radius:6px;margin-bottom:8px;">
             <h3>${libro.titulo}</h3>
             <div class="author">${libro.autor}</div>
             <div class="info">
@@ -625,7 +627,7 @@ function filterLibros() {
         const card = document.createElement('div');
         card.className = 'book-card';
         card.innerHTML = `
-            <img src="${libro.portada_url || 'data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='280'><rect width='200' height='280' fill='%23cbd5e1'/><text x='100' y='130' font-size='40' text-anchor='middle' fill='%23475569'>📚</text><text x='100' y='170' font-size='13' text-anchor='middle' fill='%23475569'>Sin portada</text></svg>'}" alt="Portada de ${libro.titulo}" class="book-cover" style="width:100%;height:160px;object-fit:cover;border-radius:6px;margin-bottom:8px;">
+            <img src="${libro.portada_url || GENERIC_COVER_URL}" alt="Portada de ${libro.titulo}" class="book-cover" style="width:100%;height:160px;object-fit:cover;border-radius:6px;margin-bottom:8px;">
             <h3>${libro.titulo}</h3>
             <div class="author">${libro.autor}</div>
             <div class="info">
